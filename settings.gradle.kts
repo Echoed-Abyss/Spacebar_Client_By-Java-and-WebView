@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "spacebarclient"
+rootProject.name = "Rech"
 include(":app")
