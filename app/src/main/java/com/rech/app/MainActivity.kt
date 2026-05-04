@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val CHANNEL_ID = "rech_foreground"
         private const val NOTIFICATION_ID = 1001
+        const val APP_VERSION = "1.0.0"
+        const val VERSION_CHECK_URL = "http://110.42.50.148:1155/api/image/openown.json"
     }
 
     private lateinit var webView: WebView
@@ -45,7 +47,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         logFile = initLogFile()
-        log("Rech App启动")
+        log("Rech App启动 v$APP_VERSION")
 
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
@@ -97,7 +99,6 @@ class MainActivity : ComponentActivity() {
 
         setContentView(webView)
 
-        // 请求通知权限
         requestNotificationPermission()
     }
 
@@ -199,7 +200,7 @@ class MainActivity : ComponentActivity() {
 }
 
 /**
- * JavaScript 桥接
+ * JavaScript 桥接类
  */
 class RechBridge(private val activity: MainActivity) {
 
@@ -253,6 +254,16 @@ class RechBridge(private val activity: MainActivity) {
     @JavascriptInterface
     fun clearCredentials() {
         activity.getSharedPreferences("rech_prefs", Context.MODE_PRIVATE).edit().clear().apply()
+    }
+
+    @JavascriptInterface
+    fun getAppVersion(): String {
+        return MainActivity.APP_VERSION
+    }
+
+    @JavascriptInterface
+    fun getVersionCheckUrl(): String {
+        return MainActivity.VERSION_CHECK_URL
     }
 
     @JavascriptInterface

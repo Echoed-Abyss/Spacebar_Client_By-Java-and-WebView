@@ -14,16 +14,10 @@
           display: flex; align-items: center; justify-content: center;
           -webkit-tap-highlight-color: transparent;
         }
-        .container {
-          width: 100%; max-width: 400px;
-          padding: 24px;
-        }
-        .logo {
-          text-align: center; margin-bottom: 32px;
-        }
+        .container { width: 100%; max-width: 400px; padding: 24px; }
+        .logo { text-align: center; margin-bottom: 32px; }
         .logo-icon {
-          width: 80px; height: 80px;
-          border-radius: 20px;
+          width: 80px; height: 80px; border-radius: 20px;
           background: linear-gradient(135deg, #6b8cff, #b666ff, #ff6b9d);
           margin: 0 auto 12px;
           display: flex; align-items: center; justify-content: center;
@@ -33,130 +27,95 @@
         .logo h1 {
           font-size: 28px;
           background: linear-gradient(135deg, #6b8cff, #b666ff, #ff6b9d);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        /* 自定义弹窗 */
+.custom-dialog-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.custom-dialog {
+  width: 85%; max-width: 320px;
+  background: rgba(20,20,40,0.9);
+  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+}
+.custom-dialog-title {
+  font-size: 18px; font-weight: 700; margin-bottom: 12px;
+  background: linear-gradient(135deg, #6b8cff, #b666ff);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.custom-dialog-message {
+  font-size: 14px; color: rgba(255,255,255,0.7);
+  margin-bottom: 20px; line-height: 1.6; white-space: pre-line;
+}
+.custom-dialog-buttons {
+  display: flex; gap: 10px;
+}
+.custom-dialog-btn {
+  flex: 1; padding: 12px; border-radius: 12px;
+  border: none; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.custom-dialog-btn.primary {
+  background: linear-gradient(135deg, #6b8cff, #b666ff);
+  color: white;
+}
+.custom-dialog-btn.secondary {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.1);
+}
         .glass-card {
           background: rgba(255,255,255,0.05);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
+          backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 20px;
-          padding: 24px;
-          margin-bottom: 16px;
+          border-radius: 20px; padding: 24px; margin-bottom: 16px;
         }
         .official-btn {
-          width: 100%;
-          padding: 14px;
-          border-radius: 14px;
+          width: 100%; padding: 14px; border-radius: 14px;
           border: 1px solid rgba(255,255,255,0.15);
-          background: rgba(107,140,255,0.2);
-          color: white;
-          font-size: 15px;
-          cursor: pointer;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          text-align: center;
-          margin-bottom: 12px;
+          background: rgba(107,140,255,0.2); color: white;
+          font-size: 15px; cursor: pointer;
+          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+          text-align: center; margin-bottom: 12px;
         }
-        .official-btn:active {
-          background: rgba(107,140,255,0.35);
-        }
-        .official-desc {
-          font-size: 12px;
-          color: rgba(255,255,255,0.5);
-          margin-bottom: 8px;
-        }
-        .divider {
-          text-align: center; color: rgba(255,255,255,0.3);
-          margin: 16px 0; font-size: 12px;
-        }
-        .input-group {
-          margin-bottom: 14px;
-        }
-        .input-group label {
-          display: block; font-size: 13px; color: rgba(255,255,255,0.6);
-          margin-bottom: 6px;
-        }
+        .official-btn:active { background: rgba(107,140,255,0.35); }
+        .official-desc { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+        .divider { text-align: center; color: rgba(255,255,255,0.3); margin: 16px 0; font-size: 12px; }
+        .input-group { margin-bottom: 14px; }
+        .input-group label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 6px; }
         .glass-input {
-          width: 100%;
-          padding: 12px 16px;
-          border-radius: 12px;
+          width: 100%; padding: 12px 16px; border-radius: 12px;
           border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.06);
-          color: white;
-          font-size: 15px;
-          outline: none;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
+          background: rgba(255,255,255,0.06); color: white;
+          font-size: 15px; outline: none;
         }
-        .glass-input:focus {
-          border-color: rgba(107,140,255,0.5);
-          background: rgba(255,255,255,0.1);
-        }
-        .glass-input::placeholder {
-          color: rgba(255,255,255,0.3);
-        }
+        .glass-input:focus { border-color: rgba(107,140,255,0.5); background: rgba(255,255,255,0.1); }
+        .glass-input::placeholder { color: rgba(255,255,255,0.3); }
         .btn-primary {
-          width: 100%;
-          padding: 14px;
-          border-radius: 14px;
-          border: none;
+          width: 100%; padding: 14px; border-radius: 14px; border: none;
           background: linear-gradient(135deg, #6b8cff, #b666ff);
-          color: white;
-          font-size: 16px;
-          font-weight: 600;
-          cursor: pointer;
-          margin-top: 8px;
+          color: white; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 8px;
         }
-        .btn-primary:active {
-          opacity: 0.8;
-        }
-        .btn-secondary {
-          width: 100%;
-          padding: 12px;
-          border-radius: 14px;
-          border: 1px solid rgba(255,255,255,0.15);
-          background: transparent;
-          color: rgba(255,255,255,0.7);
-          font-size: 14px;
-          cursor: pointer;
-          margin-top: 8px;
-        }
-        .checkbox-group {
-          display: flex; align-items: center; gap: 8px;
-          margin: 12px 0; font-size: 13px; color: rgba(255,255,255,0.6);
-        }
-        .checkbox-group input {
-          accent-color: #6b8cff;
-        }
-        .agreement {
-          font-size: 12px; color: rgba(255,255,255,0.4);
-          text-align: center; margin-top: 16px;
-        }
-        .agreement a {
-          color: #6b8cff; text-decoration: none;
-        }
-        .tab-bar {
-          display: flex; gap: 8px; margin-bottom: 20px;
-        }
+        .btn-primary:active { opacity: 0.8; }
+        .checkbox-group { display: flex; align-items: center; gap: 8px; margin: 12px 0; font-size: 13px; color: rgba(255,255,255,0.6); }
+        .checkbox-group input { accent-color: #6b8cff; }
+        .agreement { font-size: 12px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 16px; }
+        .agreement a { color: #6b8cff; text-decoration: none; }
+        .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; }
         .tab {
-          flex: 1; padding: 10px; text-align: center;
-          border-radius: 10px; cursor: pointer;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.04);
-          color: rgba(255,255,255,0.5);
-          font-size: 14px;
+          flex: 1; padding: 10px; text-align: center; border-radius: 10px; cursor: pointer;
+          border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);
+          color: rgba(255,255,255,0.5); font-size: 14px;
         }
-        .tab.active {
-          background: rgba(107,140,255,0.2);
-          border-color: rgba(107,140,255,0.4);
-          color: white;
-        }
-        .error-msg {
-          color: #ff6b6b; font-size: 13px;
-          margin-top: 8px; display: none;
-        }
+        .tab.active { background: rgba(107,140,255,0.2); border-color: rgba(107,140,255,0.4); color: white; }
+        .error-msg { color: #ff6b6b; font-size: 13px; margin-top: 8px; display: none; }
     </style>
 </head>
 <body>
@@ -167,23 +126,20 @@
     </div>
 
     <div class="tab-bar">
-        <div class="tab active" onclick="switchTab('login')">登录</div>
-        <div class="tab" onclick="switchTab('register')">注册</div>
+        <div class="tab active" id="tabLogin" onclick="switchTab('login')">登录</div>
+        <div class="tab" id="tabRegister" onclick="switchTab('register')">注册</div>
     </div>
 
     <div id="loginForm">
         <div class="glass-card">
             <div class="official-desc">官方服务器</div>
-            <button class="official-btn" onclick="setOfficial()">
-                https://spacebar.chat/
-            </button>
+            <button class="official-btn" onclick="setOfficial()">https://spacebar.chat/</button>
             <div class="divider">— 或输入自托管服务器 —</div>
             <div class="input-group">
                 <label>API 地址</label>
                 <input class="glass-input" id="apiUrl" type="text" placeholder="http://example.com/api/v9/">
             </div>
         </div>
-
         <div class="glass-card">
             <div class="input-group">
                 <label>邮箱</label>
@@ -195,7 +151,7 @@
             </div>
             <div class="checkbox-group">
                 <input type="checkbox" id="rememberMe">
-                <label for="rememberMe">记住账号和密码</label>
+                <label for="rememberMe">记住账号和密码，下次自动登录</label>
             </div>
             <div class="error-msg" id="loginError"></div>
             <button class="btn-primary" onclick="doLogin()">登录</button>
@@ -228,17 +184,61 @@
     </div>
 
     <div class="agreement">
-        登录即代表您同意 <a href="#" onclick="openAgreement()">用户协议</a> 和 <a href="#">隐私政策</a>
+        登录即代表您同意 <a href="#" onclick="showAgreement()">用户协议</a> 和 <a href="#" onclick="showAgreement()">隐私政策</a>
     </div>
 </div>
 
 <script>
-    const OFFICIAL_API = 'https://api.rory.server.spacebar.chat/api/v9/';
+    var OFFICIAL_API = 'https://api.rory.server.spacebar.chat/api/v9/';
+// 替换原生alert
+window.originalAlert = window.alert;
+window.alert = function(msg) {
+  showCustomDialog('Rech', msg, [{text:'确定', primary:true, callback:function(){}}]);
+};
 
+// 替换原生confirm
+window.originalConfirm = window.confirm;
+window.confirm = function(msg) {
+  return new Promise(function(resolve) {
+    showCustomDialog('Rech', msg, [
+      {text:'取消', primary:false, callback:function(){ resolve(false); }},
+      {text:'确定', primary:true, callback:function(){ resolve(true); }}
+    ]);
+  });
+};
+
+function showCustomDialog(title, message, buttons) {
+  var old = document.querySelector('.custom-dialog-overlay');
+  if (old) old.remove();
+
+  var overlay = document.createElement('div');
+  overlay.className = 'custom-dialog-overlay';
+
+  var btnHtml = '<div class="custom-dialog-buttons">';
+  buttons.forEach(function(btn, i) {
+    btnHtml += '<button class="custom-dialog-btn ' + (btn.primary ? 'primary' : 'secondary') + '" data-idx="' + i + '">' + btn.text + '</button>';
+  });
+  btnHtml += '</div>';
+
+  overlay.innerHTML = '<div class="custom-dialog">' +
+    '<div class="custom-dialog-title">' + title + '</div>' +
+    '<div class="custom-dialog-message">' + message + '</div>' +
+    btnHtml +
+  '</div>';
+
+  document.body.appendChild(overlay);
+
+  overlay.querySelectorAll('.custom-dialog-btn').forEach(function(el) {
+    el.addEventListener('click', function() {
+      var idx = parseInt(this.getAttribute('data-idx'));
+      overlay.remove();
+      if (buttons[idx] && buttons[idx].callback) buttons[idx].callback();
+    });
+  });
+}
     function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach((t,i) => {
-        t.classList.toggle('active', (tab === 'login' && i === 0) || (tab === 'register' && i === 1));
-      });
+      document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+      document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
       document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
       document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
     }
@@ -248,23 +248,25 @@
       document.getElementById('regApiUrl').value = OFFICIAL_API;
     }
 
-    // 页面加载时尝试自动登录
-    window.onload = function() {
+    function showAgreement() {
+      alert('用户协议\n\n1. 请合理使用本软件\n2. 遵守相关法律法规\n3. 不得用于非法用途\n4. 开发者不对用户行为负责');
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
       try {
         var creds = JSON.parse(RechNative.getSavedCredentials());
-        if (creds.email && creds.password && creds.apiUrl) {
+        if (creds.email && creds.apiUrl) {
           document.getElementById('apiUrl').value = creds.apiUrl;
           document.getElementById('loginEmail').value = creds.email;
-          document.getElementById('loginPassword').value = creds.password;
+          document.getElementById('loginPassword').value = creds.password || '';
           document.getElementById('rememberMe').checked = true;
-          // 有token直接跳转
-          var token = RechNative.getToken();
-          if (token) {
-            RechNative.navigate('rech_ui.html');
-          }
+        }
+        var token = RechNative.getToken();
+        if (token) {
+          RechNative.navigate('rech_ui.html');
         }
       } catch(e) {}
-    };
+    });
 
     function doLogin() {
       var api = document.getElementById('apiUrl').value.trim();
@@ -274,8 +276,6 @@
 
       if (!api) { showError('loginError','请输入API地址'); return; }
       if (!email || !password) { showError('loginError','请输入邮箱和密码'); return; }
-
-      // 确保API地址以/结尾
       if (!api.endsWith('/')) api += '/';
 
       fetch(api + 'auth/login', {
@@ -283,19 +283,19 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login: email, password: password })
       })
-      .then(r => r.json().then(d => ({ status: r.status, body: d })))
-      .then(res => {
-        if (res.status === 200 && res.body.token) {
+      .then(function(r) { return r.json().then(function(d) { return {status:r.status, body:d}; }); })
+      .then(function(res) {
+        if ((res.status === 200 || res.status === 201) && res.body.token) {
           RechNative.saveToken(res.body.token);
           if (remember) {
             RechNative.saveCredentials(email, password, api);
           }
           RechNative.navigate('rech_ui.html');
         } else {
-          showError('loginError', res.body.message || '登录失败');
+          showError('loginError', res.body.message || '登录失败，请检查账号密码');
         }
       })
-      .catch(e => showError('loginError', '网络错误: ' + e.message));
+      .catch(function(e) { showError('loginError', '网络错误: ' + e.message); });
     }
 
     function doRegister() {
@@ -306,7 +306,6 @@
 
       if (!api) { showError('regError','请输入API地址'); return; }
       if (!username || !email || !password) { showError('regError','请填写完整信息'); return; }
-
       if (!api.endsWith('/')) api += '/';
 
       fetch(api + 'auth/register', {
@@ -314,8 +313,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username, email: email, password: password })
       })
-      .then(r => r.json().then(d => ({ status: r.status, body: d })))
-      .then(res => {
+      .then(function(r) { return r.json().then(function(d) { return {status:r.status, body:d}; }); })
+      .then(function(res) {
         if (res.status === 200 || res.status === 201) {
           RechNative.saveToken(res.body.token || '');
           RechNative.saveCredentials(email, password, api);
@@ -325,18 +324,14 @@
           showError('regError', res.body.message || '注册失败');
         }
       })
-      .catch(e => showError('regError', '网络错误: ' + e.message));
+      .catch(function(e) { showError('regError', '网络错误: ' + e.message); });
     }
 
     function showError(id, msg) {
       var el = document.getElementById(id);
       el.textContent = msg;
       el.style.display = 'block';
-      setTimeout(function() { el.style.display = 'none'; }, 3000);
-    }
-
-    function openAgreement() {
-      alert('用户协议：请合理使用本软件，遵守相关法律法规。');
+      setTimeout(function() { el.style.display = 'none'; }, 4000);
     }
 </script>
 </body>
