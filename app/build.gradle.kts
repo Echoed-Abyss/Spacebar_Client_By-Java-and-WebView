@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.10" // 如果缺失则补充
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -51,8 +51,6 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-
-    // WebView
     implementation("androidx.webkit:webkit:1.9.0")
 
     testImplementation("junit:junit:4.13.2")

@@ -1,100 +1,105 @@
 package com.roteam.spacebar
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
+import android.os.Environment
+import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
-import com.roteam.spacebar.ui.theme.SpacebarTheme
+import java.io.File
+import java.io.FileWriter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
+
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 设置全屏沉浸式
-        setupImmersiveMode()
+        val logFile = initLogFile()
+        log(logFile, "App启动 (ComponentActivity)")
 
-        setContent {
-            SpacebarTheme {
-                Surface(modifier = Modifier.fillMaxSize()) {
-                    PrismWebView()
+        try {
+            val webView = WebView(this)
+            window.statusBarColor = android.graphics.Color.TRANSPARENT
+            window.navigationBarColor = android.graphics.Color.TRANSPARENT
+            setContentView(webView)
+            log(logFile, "WebView创建成功，已设置ContentView")
+
+            webView.settings.apply {
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                allowFileAccess = true
+                useWideViewPort = true
+                loadWithOverviewMode = true
+                builtInZoomControls = false
+                displayZoomControls = false
+            }
+            log(logFile, "WebView设置完成")
+
+            webView.webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    log(logFile, "页面加载完成: $url")
+                    //Toast.makeText(this@MainActivity, "页面加载完成", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onReceivedError(
+                    view: WebView?,
+                    errorCode: Int,
+                    description: String?,
+                    failingUrl: String?
+                ) {
+                    super.onReceivedError(view, errorCode, description, failingUrl)
+                    log(logFile, "加载错误: code=$errorCode, desc=$description, url=$failingUrl")
+                   // Toast.makeText(this@MainActivity, "加载失败: $description", Toast.LENGTH_LONG).show()
                 }
             }
-        }
-    }
 
-    private fun setupImmersiveMode() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-            window.insetsController?.apply {
-                hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                systemBarsBehavior =
-                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            or View.SYSTEM_UI_FLAG_FULLSCREEN
-                    )
-        }
-
-        window.apply {
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            statusBarColor = Color.TRANSPARENT
-            navigationBarColor = Color.TRANSPARENT
-        }
-    }
-}
-
-@SuppressLint("SetJavaScriptEnabled")
-@Composable
-fun PrismWebView() {
-    AndroidView(
-        modifier = Modifier.fillMaxSize(),
-        factory = { context ->
-            WebView(context).apply {
-                setBackgroundColor(Color.parseColor("#0A0A0F"))
-
-                settings.apply {
-                    javaScriptEnabled = true
-                    domStorageEnabled = true
-                    allowFileAccess = true
-                    allowContentAccess = true
-                    displayZoomControls = false
-                    builtInZoomControls = false
-                    useWideViewPort = true
-                    loadWithOverviewMode = true
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        mixedContentMode =
-                            android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+            webView.webChromeClient = object : WebChromeClient() {
+                override fun onConsoleMessage(msg: ConsoleMessage?): Boolean {
+                    msg?.let {
+                        log(logFile, "JS: [${it.messageLevel()}] ${it.message()} (行${it.lineNumber()})")
                     }
+                    return true
                 }
-
-                webChromeClient = WebChromeClient()
-                isVerticalScrollBarEnabled = false
-                isHorizontalScrollBarEnabled = false
-                setLayerType(View.LAYER_TYPE_HARDWARE, null)
-
-                loadUrl("file:///android_asset/prism_ui.html")
             }
+
+            // 检查assets中的文件
+            try {
+                val files = assets.list("") ?: emptyArray()
+                log(logFile, "assets文件列表: ${files.joinToString()}")
+            } catch (e: Exception) {
+                log(logFile, "读取assets失败: ${e.message}")
+            }
+
+            // 加载HTML
+            log(logFile, "开始加载 prism_ui.html")
+            webView.loadUrl("file:///android_asset/prism_ui.html")
+
+        } catch (e: Exception) {
+            log(logFile, "致命错误: ${e.message}")
+            Toast.makeText(this, "错误: ${e.message}", Toast.LENGTH_LONG).show()
         }
-    )
+    }
+
+    private fun initLogFile(): File {
+        val logDir = File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Prism")
+        if (!logDir.exists()) logDir.mkdirs()
+        return File(logDir, "prism_debug.log")
+    }
+
+    private fun log(logFile: File, message: String) {
+        val time = SimpleDateFormat("HH:mm:ss.SSS", Locale.getDefault()).format(Date())
+        val line = "[$time] $message\n"
+        android.util.Log.d("PrismDebug", message)
+        try {
+            FileWriter(logFile, true).use { it.write(line) }
+        } catch (_: Exception) {}
+    }
 }
