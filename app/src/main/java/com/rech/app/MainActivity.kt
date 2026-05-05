@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val CHANNEL_ID = "rech_foreground"
         private const val NOTIFICATION_ID = 1001
-        const val APP_VERSION = "1.0.0"
+        const val APP_VERSION = "1.0.1"
         const val VERSION_CHECK_URL = "http://110.42.50.148:1155/api/image/openown.json"
     }
 
